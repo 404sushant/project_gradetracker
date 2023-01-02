@@ -1,0 +1,22 @@
+<h1>Welcome to the Grade Tracker</h1>
+
+<h2>Students</h2>
+<ul>
+  {% for student in students %}
+    <li>{{ student.name }} - {{ student.grade }}</li>
+  {% endfor %}
+</ul>
+
+<h2>Teachers</h2>
+<ul>
+  {% for teacher in teachers %}
+    <li>{{ teacher.name }} - {{ teacher.department }}</li>
+  {% endfor %}
+</ul>
+
+<h2>Courses</h2>
+<ul>
+  {% for course in courses %}
+    <li>{{ course.name }} - {{ course.teacher }}</li>
+  {% endfor %}
+</ul>
