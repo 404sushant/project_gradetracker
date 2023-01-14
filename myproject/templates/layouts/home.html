@@ -1,8 +1,15 @@
 <!-- templates/home.html -->
 
 {% extends "base.html" %}
+{% block head %}
 
+{% endblock %}
 {% block content %}
+<head>
+  <meta charset="utf-8">
+  <title>Grade Tracker</title>
+  <link rel="stylesheet" href="/decoretion/style.css">
+
     <h1>Welcome to the Grade Tracker</h1>
     <p>This is the home page of the grade tracker app.</p>
     <div id="login-form">
@@ -20,5 +27,5 @@
             <input type="submit" value="Sign Up">
         </form>
     </div>
-    
+  </head>  
 {% endblock %}

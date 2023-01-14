@@ -52,9 +52,33 @@ class TeacherForm(forms.ModelForm):
 class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
-        fields = ['first_name', 'last_name', 'email', 'student_id', 'password', 'gpa']
+        fields = ['first_name', 'last_name', 'email', 'student_id', 'password', ]
+
+class EditStudentForm(forms.ModelForm):
+    class Meta:
+        model = Student
+        fields = ['first_name', 'last_name', 'email', 'student_id', 'password', ]
 
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
         fields = ['name', 'code', 'credits']
+
+class AddStudentForm(forms.Form):
+    first_name = forms.CharField(max_length=50)
+    last_name = forms.CharField(max_length=50)
+    email = forms.EmailField()
+    password = forms.CharField(max_length=20, widget=forms.PasswordInput)
+    password_confirm = forms.CharField(max_length=20, widget=forms.PasswordInput)
+    student_id = forms.CharField(max_length=20)
+    gpa = forms.DecimalField(max_digits=4, decimal_places=2)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get("password")
+        password_confirm = cleaned_data.get("password_confirm")
+        
+        if password and password_confirm and password != password_confirm:
+            raise forms.ValidationError("Passwords do not match.")
+        
+        return cleaned_data

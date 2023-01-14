@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 class Course(models.Model):
     name = models.CharField(max_length=200)
     code = models.CharField(max_length=20)
@@ -14,7 +14,7 @@ class Student(models.Model):
     email = models.EmailField()
     student_id = models.CharField(max_length=20)
     password = models.CharField(max_length=20)
-    gpa = models.DecimalField(max_digits=4, decimal_places=2)
+    # gpa = models.DecimalField(max_digits=4, decimal_places=2)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name} ({self.student_id})'
@@ -36,6 +36,8 @@ class Administrator(models.Model):
     password = models.CharField(max_length=20)
     role = models.CharField(max_length=100)
 
+    class Meta:
+        db_table= "gradetracker_administrator"
     def __str__(self):
         return f'{self.first_name} {self.last_name} ({self.role})'
 
@@ -64,3 +66,6 @@ class Grade(models.Model):
 
     def __str__(self):
         return f'{self.student} - {self.course}: {self.score}'
+
+class User(User):
+    is_admin = models.BooleanField(default=False)

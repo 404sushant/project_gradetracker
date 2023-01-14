@@ -1,10 +1,39 @@
-{% extends 'base.html' %}
+{% extends 'templates/layouts/base.html' %}
+{% load static %}
 
 {% block content %}
-<h1>Courses</h1>
-<ul>
-    {% for course in courses %}
-    <li>{{ course.name }}</li>
-    {% endfor %}
-</ul>
+  <h1>Courses</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Teacher</th>
+        <th>Students</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for course in courses %}
+        <tr>
+          <td>{{ course.id }}</td>
+          <td>{{ course.name }}</td>
+          <td>{{ course.teacher.first_name }} {{ course.teacher.last_name }}</td>
+          <td>
+            {% for student in course.students.all %}
+              {{ student.first_name }} {{ student.last_name }}
+              {% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </td>
+          <td>
+            <a href="{% url 'edit_course' course.id %}">Edit</a>
+            <a href="{% url 'delete_course' course.id %}">Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="{% url 'add_course' %}">Add Course</a>
 {% endblock %}
